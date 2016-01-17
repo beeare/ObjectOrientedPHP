@@ -8,12 +8,12 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          stopOnFailure="false"
-         syntaxCheck="false"
-		 beStrictAboutTestsThatDoNotTestAnythind="true"
-		 beStrictAboutOutputDuringTests="true"
-		 beStrictAboutTestSize="true"
-		 beStrictAboutTodoAnnotatedTests="true"
-		 checkForUnintentionallyCoveredCode="true">
+         syntaxCheck="true"
+         beStrictAboutTestsThatDoNotTestAnythind="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTestSize="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         checkForUnintentionallyCoveredCode="true">
     <testsuites>
         <testsuite name="Default Test Suite">
             <directory suffix=".php">./tests/</directory>
