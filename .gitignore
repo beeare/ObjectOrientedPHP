@@ -46,5 +46,9 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-composer.lock
+# Composer packages
 vendor
+composer.lock
+
+# phpStorm Project Folder
+.idea
