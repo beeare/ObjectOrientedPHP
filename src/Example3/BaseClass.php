@@ -3,11 +3,16 @@ namespace beeare\OOP\Example3;
 
 class BaseClass
 {
-    public $publicProperty;
+    public $publicProperty = 'Public property default value of BaseClass';
 
-    protected $protectedProperty;
+    protected $protectedProperty = 'Protected property default value of BaseClass';
 
-    private $privateProperty;
+    private $privateProperty = 'Private property default value of BaseClass';
+
+    public function getPrivateProperty()
+    {
+        return $this->privateProperty;
+    }
 
     public function publicMethod()
     {
@@ -16,7 +21,7 @@ class BaseClass
 
     protected function protectedMethod()
     {
-        echo 'Method can be called from instances in the same class hierarchy only.';
+        echo 'Method can be called from instances of the same class hierarchy only.';
     }
 
     private function privateMethod()

@@ -27,6 +27,47 @@ class InheritanceTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(BaseClass::class, $obj);
     }
 
+    public function testGetPublicPropertyFromSubClass()
+    {
+        $obj = new SubClass();
+
+        $publicProperty = $obj->getPublicProperty();
+        $this->assertEquals('Public property default value of BaseClass', $publicProperty);
+    }
+
+    public function testGetProtectedPropertyFromSubClass()
+    {
+        $obj = new SubClass();
+
+        $publicProperty = $obj->getProtectedProperty();
+        $this->assertEquals('Protected property default value of BaseClass', $publicProperty);
+    }
+
+    public function testGetPrivateProperty()
+    {
+        $obj = new BaseClass();
+        $this->assertEquals('Private property default value of BaseClass', $obj->getPrivateProperty());
+
+        $obj = new SubClass();
+        $this->assertEquals('Private property default value of BaseClass', $obj->getPrivateProperty());
+
+        $obj = new SubClass();
+        $this->assertEquals('Private property default value of SubClass', $obj->getOwnPrivateProperty());
+    }
+
+    /**
+     * @requires PHP 7.0
+     * @expectedException \Error
+     * @expectedExceptionMessageRegExp /Cannot access private property/
+     */
+    public function testGetParentPrivatePropertyFromSubClass()
+    {
+        $this->expectOutputRegex('/Cannot access private property/');
+
+        $obj = new SubClass();
+        $obj->getParentPrivateProperty();
+    }
+
     public function testCallParentPublicMethodFromSubClass()
     {
         $this->expectOutputString('Method can be called from everywhere.');
@@ -37,7 +78,7 @@ class InheritanceTest extends \PHPUnit_Framework_TestCase
 
     public function testCallParentProtectedMethodFromSubClass()
     {
-        $this->expectOutputString('Method can be called from instances in the same class hierarchy only.');
+        $this->expectOutputString('Method can be called from instances of the same class hierarchy only.');
 
         $subObj = new SubClass();
         $subObj->callParentProtectedMethod();
