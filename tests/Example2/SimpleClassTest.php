@@ -12,6 +12,7 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
     public function testPublicPropertyAccess()
     {
         $obj = new SimpleClass();
+        $this->assertClassHasAttribute('publicProperty', SimpleClass::class);
 
         $obj->publicProperty = 'test';
         $this->assertEquals('test', $obj->publicProperty);
@@ -19,41 +20,44 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @requires PHP 7.0
+     * @expectedException \Error
+     * @expectedExceptionMessageRegExp /Cannot access protected property/
      */
     public function testProtectedPropertyAccess()
     {
-        $this->expectOutputRegex('/.+Cannot access protected property.+/');
+        $this->expectOutputRegex('/Cannot access protected property/');
 
         $obj = new SimpleClass();
+        $this->assertClassHasAttribute('protectedProperty', SimpleClass::class);
 
-        try {
-            $obj->protectedProperty = 'test';
-        } catch (\Error $e) {
-            $this->assertRegExp('/.+Cannot access protected property.+/', $this->getActualOutput());
-        }
+        $obj->protectedProperty = 'test';
     }
 
     /**
      * @requires PHP 7.0
+     * @expectedException \Error
+     * @expectedExceptionMessageRegExp /Cannot access private property/
      */
     public function testPrivatePropertyAccess()
     {
-        $this->expectOutputRegex('/.+Cannot access private property.+/');
+        $this->expectOutputRegex('/Cannot access private property/');
 
         $obj = new SimpleClass();
+        $this->assertClassHasAttribute('privateProperty', SimpleClass::class);
 
-        try {
-            $obj->privateProperty = 'test';
-        } catch (\Error $e) {
-            $this->assertRegExp('/.+Cannot access private property.+/', $this->getActualOutput());
-        }
+        $obj->privateProperty = 'test';
     }
 
     public function testNonExistingPropertyAccess()
     {
         $obj = new SimpleClass();
 
+        $this->assertClassNotHasAttribute('nonExistingProperty', SimpleClass::class);
+
         $obj->nonExistingProperty = 'test';
+        $this->assertObjectHasAttribute('nonExistingProperty', $obj);
+        $this->assertClassNotHasAttribute('nonExistingProperty', get_class($obj));
+
         $this->assertEquals('test', $obj->nonExistingProperty);
     }
 
@@ -63,55 +67,44 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
 
         $obj = new SimpleClass();
         $obj->publicMethod();
-
-        $this->assertEquals('Method can be called from everywhere.', $this->getActualOutput());
     }
 
     /**
      * @requires PHP 7.0
+     * @expectedException \Error
+     * @expectedExceptionMessageRegExp /Call to protected method.+from context/
      */
     public function testProtectedMethodCall()
     {
-        $this->expectOutputRegex('/.+Call to protected method.+from context.+/');
+        $this->expectOutputRegex('/Call to protected method.+from context/');
 
         $obj = new SimpleClass();
-
-        try {
-            $obj->protectedMethod();
-        } catch (\Error $e) {
-            $this->assertRegExp('/.+Call to protected method.+from context.+/', $this->getActualOutput());
-        }
+        $obj->protectedMethod();
     }
 
     /**
      * @requires PHP 7.0
+     * @expectedException \Error
+     * @expectedExceptionMessageRegExp /Call to private method.+from context/
      */
     public function testPrivateMethodCall()
     {
-        $this->expectOutputRegex('/.+Call to private method.+from context.+/');
+        $this->expectOutputRegex('/Call to private method.+from context/');
 
         $obj = new SimpleClass();
-
-        try {
-            $obj->privateMethod();
-        } catch (\Error $e) {
-            $this->assertRegExp('/.+Call to private method.+from context.+/', $this->getActualOutput());
-        }
+        $obj->privateMethod();
     }
 
     /**
      * @requires PHP 7.0
+     * @expectedException \Error
+     * @expectedExceptionMessageRegExp /Call to undefined method/
      */
     public function testNonExistingMethodCall()
     {
-        $this->expectOutputRegex('/.+Call to undefined method.+/');
+        $this->expectOutputRegex('/Call to undefined method/');
 
         $obj = new SimpleClass();
-
-        try {
-            $obj->nonExistingMethod();
-        } catch (\Error $e) {
-            $this->assertRegExp('/.+Call to undefined method.+/', $this->getActualOutput());
-        }
+        $obj->nonExistingMethod();
     }
 }
