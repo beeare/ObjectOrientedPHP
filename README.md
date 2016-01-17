@@ -5,4 +5,4 @@ This example shows the creation of as well as the destruction of instances from 
 ## Example2
 This example shows the effect of the visibility modifiers (public, protected, private) on properties and methods when accessing/calling them from outside the class.
 ## Example3
-This example shows the effect of the visibility modifiers (public, protected, private) on properties and methods when accessing /calling them from inside the class or from classes in the same class hierarchy.
+This example shows the effect of the visibility modifiers (public, protected, private) on properties and methods in classes of the same class hierarchy.

@@ -14,6 +14,16 @@ class BaseClass
         return $this->privateProperty;
     }
 
+    public function setPrivateProperty($value)
+    {
+        $this->privateProperty = $value;
+    }
+
+    public function copyPrivateProperty(BaseClass $obj)
+    {
+        $this->privateProperty = $obj->privateProperty;
+    }
+
     public function publicMethod()
     {
         echo 'Method can be called from everywhere.';

@@ -55,6 +55,45 @@ class InheritanceTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Private property default value of SubClass', $obj->getOwnPrivateProperty());
     }
 
+    public function testSetPrivateProperty()
+    {
+        $obj = new BaseClass();
+        $obj->setPrivateProperty('Modified private property value of BaseClass');
+        $this->assertEquals('Modified private property value of BaseClass', $obj->getPrivateProperty());
+
+        $obj = new SubClass();
+        $obj->setPrivateProperty('Modified private property value of BaseClass');
+        $this->assertEquals('Modified private property value of BaseClass', $obj->getPrivateProperty());
+    }
+
+    public function testCopyPrivatePropertyFromBaseClassObject()
+    {
+        $obj1 = new BaseClass();
+        $obj1->setPrivateProperty('Modified private property value of BaseClass');
+
+        $obj2 = new BaseClass();
+        $obj2->copyPrivateProperty($obj1);
+        $this->assertEquals('Modified private property value of BaseClass', $obj2->getPrivateProperty());
+
+        $obj3 = new SubClass();
+        $obj3->copyPrivateProperty($obj1);
+        $this->assertEquals('Modified private property value of BaseClass', $obj3->getPrivateProperty());
+    }
+
+    public function testCopyPrivatePropertyFromSubClassObject()
+    {
+        $obj1 = new SubClass();
+        $obj1->setPrivateProperty('Modified private property value of BaseClass');
+
+        $obj2 = new BaseClass();
+        $obj2->copyPrivateProperty($obj1);
+        $this->assertEquals('Modified private property value of BaseClass', $obj2->getPrivateProperty());
+
+        $obj3 = new SubClass();
+        $obj3->copyPrivateProperty($obj1);
+        $this->assertEquals('Modified private property value of BaseClass', $obj3->getPrivateProperty());
+    }
+
     /**
      * @requires PHP 7.0
      * @expectedException \Error
