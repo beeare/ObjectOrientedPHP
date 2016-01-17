@@ -47,8 +47,8 @@ class MyClassTest extends \PHPUnit_Framework_TestCase
         $this->expectOutputString('Constructor called.' . PHP_EOL);
 
         $obj = new MyClass();
-        $obj->self = $obj;
 
+        $obj->self = $obj;
         $this->assertSame($obj, $obj->self);
 
         $obj = null;
@@ -64,8 +64,8 @@ class MyClassTest extends \PHPUnit_Framework_TestCase
         $this->expectOutputString('Constructor called.' . PHP_EOL);
 
         $obj = new MyClass();
-        $obj->self = $obj;
 
+        $obj->self = $obj;
         $this->assertSame($obj, $obj->self);
 
         unset($obj);
