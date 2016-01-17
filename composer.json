@@ -1,0 +1,23 @@
+{
+	"name": "beeare/objectorientedphp",
+	"description": "Examples for Object Oriented Programming in PHP",
+	"license": "MIT",
+	"keywords": ["object orientation", "oop", "examples"],
+	"authors": [
+		{
+			"name": "Benjamin Rack",
+			"email": "beeare@gmx.de"
+		}
+	],
+	"require-dev": {
+		"phpunit/phpunit": "5.*"
+	},
+	"autoload": {
+		"psr-0": {
+			"beeare\\OOP": "src"
+		},
+        "psr-4": {
+            "beeare\\OOP\\": "src"
+        }
+    }
+}
