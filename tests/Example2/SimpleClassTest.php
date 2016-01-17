@@ -17,6 +17,9 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('test', $obj->publicProperty);
     }
 
+    /**
+     * @requires PHP 7.0
+     */
     public function testProtectedPropertyAccess()
     {
         $this->expectOutputRegex('/.+Cannot access protected property.+/');
@@ -30,6 +33,9 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @requires PHP 7.0
+     */
     public function testPrivatePropertyAccess()
     {
         $this->expectOutputRegex('/.+Cannot access private property.+/');
@@ -61,6 +67,9 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Method can be called from everywhere.', $this->getActualOutput());
     }
 
+    /**
+     * @requires PHP 7.0
+     */
     public function testProtectedMethodCall()
     {
         $this->expectOutputRegex('/.+Call to protected method.+from context.+/');
@@ -74,6 +83,9 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * @requires PHP 7.0
+     */
     public function testPrivateMethodCall()
     {
         $this->expectOutputRegex('/.+Call to private method.+from context.+/');
@@ -87,7 +99,9 @@ class SimpleClassTest extends \PHPUnit_Framework_TestCase
         }
     }
 
-
+    /**
+     * @requires PHP 7.0
+     */
     public function testNonExistingMethodCall()
     {
         $this->expectOutputRegex('/.+Call to undefined method.+/');
