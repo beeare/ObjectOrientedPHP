@@ -11,6 +11,10 @@ class MyClassTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf(MyClass::class, $obj);
     }
 
+    /**
+     * Test shows that destructor is called immediately on implicit unset,
+     * if no circular reference exists.
+     */
     public function testImplicitUnsetWithoutSelfReference()
     {
         $this->expectOutputString('Constructor called.' . PHP_EOL . 'Destructor called.' . PHP_EOL);
@@ -22,6 +26,10 @@ class MyClassTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($obj);
     }
 
+    /**
+     * Test shows that destructor is called immediately on explicit unset,
+     * if no circular reference exists.
+     */
     public function testExplicitUnsetWithoutSelfReference()
     {
         $this->expectOutputString('Constructor called.' . PHP_EOL . 'Destructor called.' . PHP_EOL);
@@ -30,6 +38,10 @@ class MyClassTest extends \PHPUnit_Framework_TestCase
         unset($obj);
     }
 
+    /**
+     * Test shows that destructor is not called immediately on implicit unset,
+     * if a circular reference exists. Destructor is called later during shutdown process.
+     */
     public function testImplicitUnsetWithSelfReference()
     {
         $this->expectOutputString('Constructor called.' . PHP_EOL);
@@ -43,6 +55,10 @@ class MyClassTest extends \PHPUnit_Framework_TestCase
         $this->assertNull($obj);
     }
 
+    /**
+     * Test shows that destructor is not called immediately on explicit unset,
+     * if a circular reference exists. Destructor is called later during shutdown process.
+     */
     public function testExplicitUnsetWithSelfReference()
     {
         $this->expectOutputString('Constructor called.' . PHP_EOL);
