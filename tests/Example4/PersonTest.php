@@ -18,14 +18,14 @@ class PersonTest extends \PHPUnit_Framework_TestCase
     {
         $max = new Person('Max', 'Mustermann', Person::GENDER_MALE);
 
-        $max->setFirstName('Max');
-        $this->assertEquals('Max', $max->getFirstName());
+        $max->setFirstName('Maxi');
+        $this->assertEquals('Maxi', $max->getFirstName());
 
-        $max->setLastName('Mustermann');
-        $this->assertEquals('Mustermann', $max->getLastName());
+        $max->setLastName('Mustermännchen');
+        $this->assertEquals('Mustermännchen', $max->getLastName());
 
-        $max->setGender(Person::GENDER_MALE);
-        $this->assertEquals(Person::GENDER_MALE, $max->getGender());
+        $max->setGender(Person::GENDER_FEMALE);
+        $this->assertEquals(Person::GENDER_FEMALE, $max->getGender());
     }
 
     public function testSetValidGender()
