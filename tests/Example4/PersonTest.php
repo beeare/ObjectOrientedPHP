@@ -194,4 +194,64 @@ class PersonTest extends \PHPUnit_Framework_TestCase
         $max = new Person('Max', 'Mustermann', Person::GENDER_MALE);
         $max->setChildren([$max]);
     }
+
+    public function testGetMother()
+    {
+        $max = new Person('Max', 'Mustermann', Person::GENDER_MALE);
+
+        $peter = new Person('Peter', 'Mustermann', Person::GENDER_MALE);
+        $petra = new Person('Petra', 'Mustermann', Person::GENDER_FEMALE);
+
+        $max->setParents([$peter, $petra]);
+
+        $this->assertEquals($petra, $max->getMother());
+    }
+
+    public function testGetGrandfathers()
+    {
+        $max = new Person('Max', 'Mustermann', Person::GENDER_MALE);
+
+        $peter = new Person('Peter', 'Mustermann', Person::GENDER_MALE);
+        $marta = new Person('Marta', 'Mustermann', Person::GENDER_FEMALE);
+        $rudolf = new Person('Rudolf', 'Mustermann', Person::GENDER_MALE);
+        $peter->setParents([$marta, $rudolf]);
+
+        $petra = new Person('Petra', 'Mustermann', Person::GENDER_FEMALE);
+        $richard = new Person('Richard', 'Mustermann', Person::GENDER_MALE);
+        $elisabeth = new Person('Elisabeth', 'Mustermann', Person::GENDER_FEMALE);
+        $petra->setParents([$richard, $elisabeth]);
+
+        $max->setParents([$peter, $petra]);
+
+        $this->assertEquals([$rudolf, $richard], $max->getGrandfathers());
+    }
+
+    public function testGetSisters()
+    {
+        $max = new Person('Max', 'Mustermann', Person::GENDER_MALE);
+
+        $marie = new Person('Marie', 'Mustermann', Person::GENDER_FEMALE);
+        $manuel = new Person('Manuel', 'Mustermann', Person::GENDER_MALE);
+        $anna = new Person('Anna', 'Mustermann', Person::GENDER_FEMALE);
+
+        $max->setSiblings([$marie, $manuel, $anna]);
+
+        $this->assertEquals([$marie, $anna], $max->getSisters());
+    }
+
+    public function testIsCousinOf()
+    {
+        $max = new Person('Max', 'Mustermann', Person::GENDER_MALE);
+        $petra = new Person('Petra', 'Mustermann', Person::GENDER_FEMALE);
+        $jean = new Person('Jean', 'Mustermann', Person::GENDER_MALE);
+        $manuel = new Person('Manuel', 'Mustermann', Person::GENDER_MALE);
+        $anna = new Person('Anna', 'Mustermann', Person::GENDER_FEMALE);
+
+        $max->setParents([$petra]);
+        $petra->setSiblings([$jean]);
+        $jean->setChildren([$manuel, $anna]);
+
+        $this->assertTrue($max->isCousinOf($manuel));
+        $this->assertTrue($max->isCousinOf($anna));
+    }
 }
